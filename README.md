@@ -1,6 +1,6 @@
-# anushkadixit4.github.io
+# portfolio
 
-Source for my personal portfolio, live at [anushkadixit4.github.io](https://anushkadixit4.github.io).
+Source for my personal portfolio, live at [anushkadixit4.github.io/portfolio](https://anushkadixit4.github.io/portfolio/).
 
 Plain HTML, CSS, and a bit of JavaScript. No framework, no build step, no dependencies. GitHub Pages
 serves `index.html` straight from the `main` branch.
