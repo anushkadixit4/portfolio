@@ -272,6 +272,28 @@
   .about-meta { margin-top: 26px; display: flex; flex-direction: column; gap: 16px; }
 
   .skills-line { font-size: 14px; color: var(--ink-soft); }
+
+  .highlights-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+    color: var(--ink-soft);
+  }
+  .highlights-list li { position: relative; padding-left: 16px; }
+  .highlights-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 8px;
+    width: 5px;
+    height: 5px;
+    background: var(--accent);
+  }
+
   .meta-label {
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 11px;
@@ -436,11 +458,15 @@
   <section class="section" id="about">
     <div class="rail">About</div>
     <div class="lede">
-      <p>I'm a data engineer at R Systems International, where I own the migration of Oracle and Azure Synapse reporting logic into a governed Databricks Lakehouse.</p>
-      <p>In college, I focused mainly on machine learning algorithms and generative AI. Since joining R Systems, that focus has shifted to data engineering, where I'm accountable for pipelines client teams depend on daily, end to end.</p>
+      <p>I'm a data engineer at R Systems International, with a B.E. in Artificial Intelligence &amp; Data Science from Savitribai Phule Pune University.</p>
 
       <div class="about-meta">
         <p class="skills-line"><span class="meta-label">Skills</span>Databricks &middot; Gen AI &middot; Machine Learning &middot; Enterprise Data Layer (EDL)</p>
+
+        <ul class="highlights-list">
+          <li>Migrated Oracle SQL reports into a governed Databricks Lakehouse</li>
+          <li>Built an in-house accelerator converting Azure Synapse T-SQL stored procedures into Databricks-compatible PySpark</li>
+        </ul>
 
         <a class="credential" href="https://credentials.databricks.com/237079f4-40b9-4fc9-8629-9e8ec4b87b8a" target="_blank" rel="noopener">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
