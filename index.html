@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#FBF1F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#211720" media="(prefers-color-scheme: dark)">
 <title>Anushka Dixit | Data Engineer</title>
 <style>
   @font-face {
@@ -48,54 +50,59 @@
 
 
   :root {
-    --paper: #E9E5DA;
-    --paper-raised: #F4F1E8;
-    --ink: #24251F;
-    --ink-soft: #5B5B4E;
-    --accent: #A23327;
-    --indigo: #2F4258;
-    --line: #C9C3B2;
-    --shadow: 0 1px 2px rgba(36,37,31,0.06);
+    --paper: #FBF1F0;
+    --paper-raised: #FFF9F8;
+    --ink: #2B1E23;
+    --ink-soft: #6E5862;
+    --accent: #B23A5C;
+    --accent-soft: #E8A0AE;
+    --indigo: #3F5D58;
+    --line: #E5CBCD;
+    --shadow: 0 1px 2px rgba(120,40,60,0.08);
   }
 
   @media (prefers-color-scheme: dark) {
     :root {
-      --paper: #191D22;
-      --paper-raised: #20252B;
-      --ink: #E7E2D3;
-      --ink-soft: #9AA0A0;
-      --accent: #C9634B;
-      --indigo: #7C93AC;
-      --line: #33393F;
-      --shadow: 0 1px 2px rgba(0,0,0,0.3);
+      --paper: #211720;
+      --paper-raised: #2B1F29;
+      --ink: #F3E4E6;
+      --ink-soft: #BC98A2;
+      --accent: #E8899F;
+      --accent-soft: #6B3547;
+      --indigo: #82AA9F;
+      --line: #402D3A;
+      --shadow: 0 1px 2px rgba(0,0,0,0.35);
     }
   }
 
   :root[data-theme="dark"] {
-    --paper: #191D22;
-    --paper-raised: #20252B;
-    --ink: #E7E2D3;
-    --ink-soft: #9AA0A0;
-    --accent: #C9634B;
-    --indigo: #7C93AC;
-    --line: #33393F;
-    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+    --paper: #211720;
+    --paper-raised: #2B1F29;
+    --ink: #F3E4E6;
+    --ink-soft: #BC98A2;
+    --accent: #E8899F;
+    --accent-soft: #6B3547;
+    --indigo: #82AA9F;
+    --line: #402D3A;
+    --shadow: 0 1px 2px rgba(0,0,0,0.35);
   }
 
   :root[data-theme="light"] {
-    --paper: #E9E5DA;
-    --paper-raised: #F4F1E8;
-    --ink: #24251F;
-    --ink-soft: #5B5B4E;
-    --accent: #A23327;
-    --indigo: #2F4258;
-    --line: #C9C3B2;
-    --shadow: 0 1px 2px rgba(36,37,31,0.06);
+    --paper: #FBF1F0;
+    --paper-raised: #FFF9F8;
+    --ink: #2B1E23;
+    --ink-soft: #6E5862;
+    --accent: #B23A5C;
+    --accent-soft: #E8A0AE;
+    --indigo: #3F5D58;
+    --line: #E5CBCD;
+    --shadow: 0 1px 2px rgba(120,40,60,0.08);
   }
 
   * { box-sizing: border-box; }
 
-  html { -webkit-text-size-adjust: 100%; }
+  html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
 
   body {
     margin: 0;
@@ -220,17 +227,65 @@
   .section:first-of-type { border-top: none; }
 
   .rail {
+    position: relative;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     font-size: 12px;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--ink-soft);
     padding-top: 4px;
+    padding-left: 20px;
+  }
+
+  /* ---------- flow line: the rail doubles as a data-pipeline thread that
+     draws itself down the page as each section streams into view ---------- */
+
+  .rail::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px; bottom: -72px;
+    width: 2px;
+    background: var(--line);
+  }
+  .section:last-of-type .rail::before { bottom: 0; }
+
+  .rail::after {
+    content: "";
+    position: absolute;
+    left: 0; top: 6px;
+    width: 2px;
+    height: 0;
+    background: linear-gradient(var(--accent), var(--accent-soft));
+    transition: height 1.2s cubic-bezier(.16,.8,.28,1);
+  }
+  .section.in-view .rail::after { height: calc(100% + 72px); }
+  .section:last-of-type.in-view .rail::after { height: 100%; }
+
+  .rail-node {
+    position: absolute;
+    left: -3px; top: 2px;
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--line);
+    transition: background 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
+  }
+  .section.in-view .rail-node {
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .rail::after { transition: none; }
+    .section.in-view .rail::after { height: calc(100% + 72px); }
   }
 
   @media (max-width: 680px) {
     .section { grid-template-columns: 1fr; gap: 14px; padding: 48px 0; }
     .shell { padding: 0 22px; }
+    .rail::before, .rail::after { display: none; }
+    .rail { padding-left: 0; }
   }
 
   /* ---------- hero ---------- */
@@ -249,6 +304,26 @@
   .hero-name {
     font-size: clamp(40px, 7vw, 60px);
     line-height: 1.15;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .hero-origin {
+    flex-shrink: 0;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 16%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .hero-origin { animation: pulse 2.6s ease-in-out infinite; }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 16%, transparent); }
+      50% { box-shadow: 0 0 0 9px color-mix(in srgb, var(--accent) 8%, transparent); }
+    }
   }
 
   .hero-role {
@@ -290,9 +365,17 @@
     padding: 14px 16px;
     max-width: 54ch;
     color: var(--ink);
+    transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
   .credential svg { color: var(--accent); flex-shrink: 0; margin-top: 3px; }
-  .credential:hover { border-color: var(--accent); }
+  .credential:hover {
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px color-mix(in srgb, var(--accent) 12%, transparent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .credential:hover { transform: none; }
+  }
   .credential-text { display: flex; flex-direction: column; gap: 4px; }
   .credential-title { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 15px; color: var(--ink); }
   .credential-desc { color: var(--ink-soft); font-size: 13px; line-height: 1.5; }
@@ -337,10 +420,19 @@
     display: flex;
     flex-direction: column;
     gap: 10px;
-    transition: background 0.2s ease;
+    position: relative;
+    transition: background 0.2s ease, transform 0.25s ease, box-shadow 0.25s ease;
   }
-  .project:hover { background: var(--paper); }
+  .project:hover {
+    background: var(--paper);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px color-mix(in srgb, var(--accent) 14%, transparent);
+    z-index: 1;
+  }
   .project:hover .project-name { color: var(--accent); }
+  @media (prefers-reduced-motion: reduce) {
+    .project:hover { transform: none; }
+  }
 
   .project-link a { display: inline-flex; align-items: center; gap: 5px; }
   .project-link a span { transition: transform 0.2s ease; display: inline-block; }
@@ -429,13 +521,13 @@
 
   <section class="hero reveal">
     <div>
-      <h1 class="hero-name">Anushka Dixit</h1>
+      <h1 class="hero-name"><span class="hero-origin" aria-hidden="true"></span>Anushka Dixit</h1>
       <div class="hero-role">Data Engineer &nbsp;·&nbsp; R Systems International &nbsp;·&nbsp; Pune, India</div>
     </div>
   </section>
 
   <section class="section" id="about">
-    <div class="rail">About</div>
+    <div class="rail"><span class="rail-node" aria-hidden="true"></span>About</div>
     <div class="lede">
       <p>I work on data pipelines and analytics, migrating enterprise SQL workloads to a Databricks Lakehouse with PySpark and building Power BI dashboards used for day-to-day business decisions. Background in machine learning and data science from my B.E. in Artificial Intelligence &amp; Data Science at Savitribai Phule Pune University.</p>
 
@@ -456,7 +548,7 @@
   </section>
 
   <section class="section" id="experience">
-    <div class="rail">Experience</div>
+    <div class="rail"><span class="rail-node" aria-hidden="true"></span>Experience</div>
     <div>
       <div class="role">
         <span class="role-title">Data Engineer</span>
@@ -487,7 +579,7 @@
   </section>
 
   <section class="section" id="work">
-    <div class="rail">Selected&nbsp;work</div>
+    <div class="rail"><span class="rail-node" aria-hidden="true"></span>Selected&nbsp;work</div>
     <div class="projects">
       <div class="project">
         <div class="project-name">Thyroid Cancer Recurrence Prediction</div>
@@ -505,7 +597,7 @@
   </section>
 
   <section class="section" id="skills">
-    <div class="rail">Skills</div>
+    <div class="rail"><span class="rail-node" aria-hidden="true"></span>Skills</div>
     <div class="skill-groups">
       <div>
         <div class="skill-group-title">
@@ -539,7 +631,7 @@
   </section>
 
   <section class="section" id="connect">
-    <div class="rail">Connect</div>
+    <div class="rail"><span class="rail-node" aria-hidden="true"></span>Connect</div>
     <div class="connect-list">
       <a href="https://github.com/anushkadixit4">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5C5.73.5.5 5.73.5 12c0 5.02 3.26 9.28 7.79 10.78.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.1-3.17.69-3.84-1.34-3.84-1.34-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.67 1.24 3.32.95.1-.74.4-1.24.72-1.53-2.53-.29-5.19-1.27-5.19-5.63 0-1.24.44-2.26 1.17-3.06-.12-.29-.51-1.45.11-3.02 0 0 .96-.31 3.14 1.17a10.9 10.9 0 0 1 5.72 0c2.18-1.48 3.14-1.17 3.14-1.17.62 1.57.23 2.73.11 3.02.73.8 1.17 1.82 1.17 3.06 0 4.37-2.67 5.34-5.21 5.62.41.36.77 1.06.77 2.14 0 1.55-.01 2.79-.01 3.17 0 .3.2.66.79.55A10.51 10.51 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5Z"/></svg>
