@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#FBF1F0" media="(prefers-color-scheme: light)">
-<meta name="theme-color" content="#211720" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" id="themeColorMeta" content="#FBF1F0">
 <title>Anushka Dixit | Data Engineer</title>
 <style>
   @font-face {
@@ -59,20 +58,6 @@
     --indigo: #3F5D58;
     --line: #E5CBCD;
     --shadow: 0 1px 2px rgba(120,40,60,0.08);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --paper: #211720;
-      --paper-raised: #2B1F29;
-      --ink: #F3E4E6;
-      --ink-soft: #BC98A2;
-      --accent: #E8899F;
-      --accent-soft: #6B3547;
-      --indigo: #82AA9F;
-      --line: #402D3A;
-      --shadow: 0 1px 2px rgba(0,0,0,0.35);
-    }
   }
 
   :root[data-theme="dark"] {
@@ -209,10 +194,6 @@
   .icon-moon { display: none; }
   :root[data-theme="dark"] .icon-sun { display: none; }
   :root[data-theme="dark"] .icon-moon { display: block; }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .icon-sun { display: none; }
-    :root:not([data-theme="light"]) .icon-moon { display: block; }
-  }
 
   /* ---------- layout: margin rail + content ---------- */
 
@@ -670,15 +651,19 @@
   (function () {
     var root = document.documentElement;
     var toggle = document.getElementById('themeToggle');
+    var themeColorMeta = document.getElementById('themeColorMeta');
     var stored = localStorage.getItem('anu-theme');
-    if (stored) root.setAttribute('data-theme', stored);
+
+    function applyTheme(theme) {
+      root.setAttribute('data-theme', theme);
+      themeColorMeta.setAttribute('content', theme === 'dark' ? '#211720' : '#FBF1F0');
+    }
+
+    applyTheme(stored === 'dark' ? 'dark' : 'light');
 
     toggle.addEventListener('click', function () {
-      var current = root.getAttribute('data-theme');
-      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      var effectiveDark = current ? current === 'dark' : prefersDark;
-      var next = effectiveDark ? 'light' : 'dark';
-      root.setAttribute('data-theme', next);
+      var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
       localStorage.setItem('anu-theme', next);
     });
 
