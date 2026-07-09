@@ -151,17 +151,21 @@
   }
   .nav-links a:hover, .nav-links a.active { color: var(--plum); }
   .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
-  .nav-cta {
+  .nav-links a.nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
     font-size: 14px; font-weight: 600;
-    color: #fff !important;
+    color: #fff;
     background: var(--rose);
-    padding: 9px 18px;
+    padding: 10px 20px;
     border-radius: 999px;
     box-shadow: var(--shadow-sm);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
   }
-  .nav-cta::after { display: none; }
-  .nav-cta:hover { background: var(--rose-deep); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+  .nav-links a.nav-cta::after { display: none; }
+  .nav-links a.nav-cta:hover { background: var(--rose-deep); color: #fff; transform: translateY(-1px); box-shadow: var(--shadow-md); }
 
   .hamburger {
     display: none;
@@ -199,7 +203,7 @@
     .nav-links.open { transform: none; opacity: 1; pointer-events: auto; }
     .nav-links a { padding: 14px 4px; border-bottom: 1px solid var(--border); font-size: 16px; }
     .nav-links a::after { display: none; }
-    .nav-cta { text-align: center; margin-top: 12px; padding: 13px; border-radius: 12px; }
+    .nav-links a.nav-cta { text-align: center; margin-top: 12px; padding: 14px; border-radius: 12px; }
     .hamburger { display: flex; }
   }
 
@@ -516,7 +520,7 @@
       <div>
         <p class="eyebrow hero-enter d1">Data Engineer · Pune, India</p>
         <h1 class="hero-name hero-enter d2">Hi, I'm<br><span class="grad">Anushka Dixit</span></h1>
-        <p class="hero-tagline hero-enter d3">I work on data pipelines and analytics, migrating enterprise SQL workloads to a Databricks Lakehouse with PySpark and building Power BI dashboards used for day-to-day business decisions. Background in machine learning and data science from my B.E. in Artificial Intelligence &amp; Data Science at Savitribai Phule Pune University.</p>
+        <p class="hero-tagline hero-enter d3">I work as a Data Engineer at R Systems, have experience in building dashboards using PowerBI; Databricks, ETL. Background in machine learning and data science from my B.E. in Artificial Intelligence &amp; Data Science at Savitribai Phule Pune University.</p>
         <div class="hero-meta hero-enter d4">
           <span>R Systems International</span>
           <span>Databricks Certified</span>
@@ -617,7 +621,6 @@
           </div>
           <div class="cert-kicker">Certification</div>
           <div class="cert-title">Databricks Certified Data Engineer Associate</div>
-          <div class="cert-desc">Validated proficiency in building and managing data pipelines on the Databricks Lakehouse Platform.</div>
         </a>
       </div>
     </div>
